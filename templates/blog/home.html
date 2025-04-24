@@ -8,19 +8,29 @@
 </head>
 <body>
 
-<!-- 상단 네비게이션 -->
-<nav>
-    <div>
-        <span class="logo">minji JJANG</span>
-        <a href="/">Home</a>
-        <a href="/blog/">Blog</a>
-        <a href="/about/">About Me</a>
+<nav style="background-color: white; padding: 16px 40px; border-bottom: 1px solid #ddd;">
+  <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+
+    <!-- 왼쪽 전체 묶음: 로고 + 메뉴 -->
+    <div style="display: flex; align-items: center; gap: 40px;">
+      <div style="font-size: 1.2rem; font-weight: bold;">minji JJANG</div>
+      <div style="display: flex; gap: 20px;">
+        <a href="/" style="text-decoration: none; font-weight: bold; color: black;">Home</a>
+        <a href="/blog/" style="text-decoration: none; font-weight: bold; color: black;">Blog</a>
+        <a href="/about/" style="text-decoration: none; font-weight: bold; color: black;">About Me</a>
+        <a href="/board/" style="text-decoration: none; font-weight: bold; color: black;">Board</a>
+      </div>
     </div>
-    {% if user.is_authenticated %}
-        <div><a href="/accounts/logout/">Log Out</a></div>
-    {% else %}
-        <div><a href="/accounts/login/">Log In</a></div>
-    {% endif %}
+
+    <!-- 오른쪽: 로그인/로그아웃 -->
+    <div>
+      {% if user.is_authenticated %}
+        <a href="/accounts/logout/" style="text-decoration: none; font-weight: bold; color: black;">Log Out</a>
+      {% else %}
+        <a href="/accounts/login/" style="text-decoration: none; font-weight: bold; color: black;">Log In</a>
+      {% endif %}
+    </div>
+  </div>
 </nav>
 
 <!-- 메인 콘텐츠: 좌우 나눔 -->
