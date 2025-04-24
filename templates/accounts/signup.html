@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>회원가입</title>
+</head>
+<body>
+  <nav>
+    <a href="/">홈</a> |
+    <a href="/accounts/login">로그인</a>
+  </nav>
+
+  <h2>회원가입</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type = "submit">가입하기</button>
+  </form>
+</body>
+</html>

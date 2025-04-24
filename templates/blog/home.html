@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>홈 - 내 블로그</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<!-- 상단 네비게이션 -->
+<nav>
+    <div>
+        <span class="logo">minji JJANG</span>
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About Me</a>
+    </div>
+    {% if user.is_authenticated %}
+        <div><a href="/accounts/logout/">Log Out</a></div>
+    {% else %}
+        <div><a href="/accounts/login/">Log In</a></div>
+    {% endif %}
+</nav>
+
+<!-- 메인 콘텐츠: 좌우 나눔 -->
+<div class="container">
+    <!-- 왼쪽  -->
+    <div class="intro">
+        <h1>김민지 Django</h1>
+        <p>Django를 이용하여 만든 블로그입니다.<br>
+        minji_JJANG님의 블로그를 구경해보세요 ~~</p>
+    </div>
+
+    <!-- 오른쪽 -->
+    <div class="recent-posts">
+        <h2>Recent posts</h2>
+
+        {% for post in posts %}
+            <div class="card">
+                <h3>{{ post.title }}</h3>
+                <small>
+                    <img src="{% static 'images/profile.jpg' %}" alt="작성자">
+                    {{ post.author.username }} &nbsp;&nbsp; {{ post.created_at|date:"Y-m-d H:i" }}
+                </small>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

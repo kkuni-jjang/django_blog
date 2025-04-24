@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+</head>
+<body>
+    <a href="/">← 홈으로</a>
+
+    <h1>{{ post.title }}</h1>
+    <div class="post-content" style="line-height: 1.8; font-size: 1.1rem;">
+        {{ post.content|linebreaksbr }}
+    </div>
+    {% if post.thumbnail %}
+    <img src="{{ post.thumbnail.url }}" alt="대표 이미지" style="width: 100%; max-width: 500px; border-radius: 10px; margin-bottom: 20px;">
+    {% endif %}
+
+    <p>작성자: {{ post.author }} | {{ post.created_at }}</p>
+
+    <hr>
+
+<h3>댓글</h3>
+
+{% for comment in comments %}
+    <div style="margin-bottom: 20px;">
+        <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
+        <small>{{ comment.created_at }}</small>
+
+        {% if user == comment.author %}
+            <!-- 수정 버튼 -->
+            <div style="margin-top: 5px;">
+                <a href="{% url 'edit_comment' post.pk comment.pk %}">수정</a>
+            </div>
+        {% endif %}
+    </div>
+{% empty %}
+    <p>아직 댓글이 없습니다.</p>
+{% endfor %}
+
+<hr>
+
+<!-- 로그인 된 사용자만 댓글 작성 -->
+{% if user.is_authenticated %}
+    <h4>댓글 작성</h4>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">댓글 달기</button>
+    </form>
+{% else %}
+    <p><a href="/accounts/login/">로그인</a> 후 댓글을 작성할 수 있습니다.</p>
+{% endif %}
+</body>
+</html>
